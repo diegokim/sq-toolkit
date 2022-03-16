@@ -48,6 +48,19 @@ class DynamoDbClient {
     }
 
     /**
+     * Synchronous write operation that groups up to 25 action requests.
+     * For info on each param please refer to the docs: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#transactWrite-property
+     * @param {array} transactItems
+     * @return {Promise<*>}
+     */
+    async transactWrite(transactItems) {
+        let params = {
+            TransactItems: transactItems
+        }
+        return this.docClient.transactWrite(params).promise();
+    }
+
+    /**
      * Returns a set of attributes for the item with the given primary key.
      * For info on each param please refer to the docs: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.NodeJs.03.html
      * @param {string} table
