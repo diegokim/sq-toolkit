@@ -54,10 +54,21 @@ class DynamoDbClient {
      * @return {Promise<*>}
      */
     async transactWrite(transactItems) {
-        let params = {
+        const params = {
             TransactItems: transactItems
         }
         return this.docClient.transactWrite(params).promise();
+    }
+
+    async batchGet(tableName, keys) {
+        const params = {
+            RequestItems: {
+                [tableName]: {
+                    Keys: keys
+                }
+            }
+        }
+        return this.docClient.batchGet(params).promise();
     }
 
     /**
